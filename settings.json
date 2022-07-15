@@ -1,0 +1,6 @@
+{
+  "default": {
+    "outputFolder": "./output",
+    "jsonp": true
+  }
+}
