@@ -5,9 +5,17 @@ const settings = require("./settings.json"),
   { rbg2hex } = require("./scripts/functions");
 
 const readFile = (...files) =>
-  files.map((path) =>
-    JSON.parse(fs.readFileSync(path).toString("utf-8").replace("\x00", ""))
-  );
+  files.map((path) => {
+    try {
+      return JSON.parse(
+        fs.readFileSync(path).toString("utf-8").replace("\x00", "")
+      );
+    } catch (e) {
+      console.log(`Failed to read ${path}\n`);
+      console.log("--> Exiting in 5 seconds");
+      setTimeout(() => process.exit(1), 5000);
+    }
+  });
 
 const Song = { data: {}, moves0: [], moves1: [], moves2: [], moves3: [] };
 
