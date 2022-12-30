@@ -1,5 +1,6 @@
 {
   "default": {
+    "inputFolder": "./input",
     "outputFolder": "./output",
     "jsonp": true
   }

@@ -20,10 +20,10 @@ const readFile = (...files) =>
 const Song = { data: {}, moves0: [], moves1: [], moves2: [], moves3: [] };
 
 const [dtape, ktape, musictrack, songdesc] = readFile(
-  "./dtape-input.json",
-  "./ktape-input.json",
-  "./musictrack-input.json",
-  "./songdesc-input.json"
+  `./${settings.default.inputFolder}/dtape-input.json`,
+  `./${settings.default.inputFolder}/ktape-input.json`,
+  `./${settings.default.inputFolder}/musictrack-input.json`,
+  `./${settings.default.inputFolder}/songdesc-input.json`
 );
 
 // --> Song main json
@@ -166,6 +166,10 @@ ktape.Clips.forEach((clip) => {
       break;
     }
   }
+  //Prevent the order of the lyrics from being out of order
+  Song.data["lyrics"].sort(function (a, b) {
+    return parseFloat(a.time) - parseFloat(b.time);
+  });
 });
 
 // --> Write files
@@ -186,10 +190,10 @@ for (let coach = 0; coach < songInfo.NumCoach; coach++)
     `./${settings.default.outputFolder}/${songInfo.MapName}/${songInfo.MapName}_moves${coach}.json`,
     settings.default.jsonp
       ? `${songInfo.MapName}${coach}(${JSON.stringify(
-          Song[`moves${coach}`],
-          null,
-          2
-        )})`
+        Song[`moves${coach}`],
+        null,
+        2
+      )})`
       : JSON.stringify(Song[`moves${coach}`], null, 2)
   );
 
