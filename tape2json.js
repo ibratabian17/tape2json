@@ -166,11 +166,27 @@ ktape.Clips.forEach((clip) => {
       break;
     }
   }
-  //Prevent the order of the lyrics from being out of order
-  Song.data["lyrics"].sort(function (a, b) {
-    return parseFloat(a.time) - parseFloat(b.time);
-  });
 });
+
+// --> Sort Lyrics, Pictos, Moves
+Song.data["lyrics"] = Song.data["lyrics"].sort((a, b) => {
+  if (a.time < b.time) {
+    return -1;
+  }
+});
+Song.data["pictos"] = Song.data["pictos"].sort((a, b) => {
+  if (a.time < b.time) {
+    return -1;
+  }
+});
+for (let coach = 0; coach < songInfo.NumCoach; coach++) {
+  Song[`moves${coach}`] = Song[`moves${coach}`].sort((a, b) => {
+    if (a.time < b.time) {
+      return -1;
+    }
+  });
+}
+
 
 // --> Write files
 if (!fs.existsSync(`./${settings.default.outputFolder}/${songInfo.MapName}`))
