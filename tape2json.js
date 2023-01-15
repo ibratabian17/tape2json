@@ -148,7 +148,7 @@ dtape.Clips.forEach((clip) => {
 
 // --> KTape
 Song.data["lyrics"] = [];
-
+if(ktape.Clips != undefined){
 ktape.Clips.forEach((clip) => {
   const { __class } = clip;
 
@@ -167,6 +167,7 @@ ktape.Clips.forEach((clip) => {
     }
   }
 });
+}
 
 // --> Sort Lyrics, Pictos, Moves
 Song.data["lyrics"] = Song.data["lyrics"].sort((a, b) => {
